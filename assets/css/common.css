@@ -1,0 +1,33 @@
+body {
+    background-color: #f6f6f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Nanum Pen Script";
+    min-height: 100vh;
+    margin: 0;
+}
+
+.main {
+    background-color: #fff;
+    box-shadow: 0 7px 29px 0 rgba(100, 100, 111, .2);
+}
+
+.main {
+    min-height: 100vh;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 900px;
+}
+
+@media (min-width: 900px) {
+    .main {
+        width: 890px;
+    }
+}
+
+@media (max-width: 890px) {
+    .main {
+        width: 90vw;
+    }
+}
