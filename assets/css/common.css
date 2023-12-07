@@ -183,3 +183,72 @@ header .head_btn_right {
     font-size: 20px;
     margin: 0 5px;
 }
+
+.todo_type_wrapper {
+    cursor: pointer;
+    min-width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+}
+
+.todo_type_wrapper_1 {
+    background-color: #64c964;
+    color: #fff;
+}
+
+
+.todo_type_wrapper_2 {
+    background-color: #9dd772;
+    color: #fff;
+}
+
+.todo_type_wrapper_3 {
+    background-color: #fdce17;
+    color: #fff;
+}
+
+.todo_type_wrapper_4 {
+    background-color: #fd8446;
+    color: #fff;
+}
+
+.todo_type_wrapper_5 {
+    background-color: #fd565f;
+    color: #fff;
+}
+
+.todo_item {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e2e2e2;
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo_wrapper {
+    flex-grow: 1;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.todo_description {
+    font-size: 20px;
+}
+
+.todo_date {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.todo_btn_wrapper .color-button {
+    margin-left: 5px;
+}
+
+.todo-list {
+    overflow: auto;
+    max-height: 90vh;
+}
