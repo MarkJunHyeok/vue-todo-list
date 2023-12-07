@@ -31,3 +31,155 @@ body {
         width: 90vw;
     }
 }
+
+.color-button {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    white-space: nowrap;
+    font-family: "Nanum Pen Script";
+}
+
+.default-button {
+    background-color: #ececec;
+    color: #000;
+}
+
+.positive-button {
+    background-color: #64c964;
+    color: #fff;
+}
+
+.negative-button {
+    background-color: #fd565f;
+    color: #fff;
+}
+
+.purple-button {
+    background-color: rgba(201, 185, 248, 0.75);
+    color: rgb(255, 255, 255);
+}
+
+button {
+    appearance: auto;
+    text-rendering: auto;
+    color: buttontext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: buttonface;
+    margin: 0em;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
+}
+
+header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+header, header > div {
+    display: flex;
+}
+
+header .head_text {
+    width: 50%;
+    font-size: 25px;
+    justify-content: center;
+}
+
+header .head_btn_left {
+    width: 25%;
+    justify-content: start;
+}
+
+header .head_btn_right {
+    width: 25%;
+    justify-content: end;
+}
+
+/* 모달 스타일을 정의합니다. */
+.modal {
+    /* 모달을 화면 중앙에 위치시키고 배경을 어둡게 만듭니다. */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    /* 모달 내부의 스타일을 정의합니다. */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.calendar {
+    /* 캘린더 내용의 스타일을 정의합니다. */
+    display: inline-block; /* 인라인 블록으로 표시 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    font-size: 18px;
+    width: 400px;
+    height: 23vh;
+}
+
+.calendar-header {
+    margin-bottom: 15px;
+    font-size: 21px;
+}
+
+.calendar table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar table th {
+    background-color: #f0f0f0;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.calendar table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.calendar table td button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+    padding: 0;
+}
+
+/* 이전 월, 다음 월 버튼 스타일링 */
+.calendar-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 5px;
+}
