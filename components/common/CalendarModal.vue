@@ -10,10 +10,6 @@ const props = defineProps({
 
 const currentDate = ref(props.date)
 
-onUnmounted(() => {
-  currentDate.value = props.date
-})
-
 const currentYear = computed(() => currentDate.value.getFullYear());
 const currentMonth = computed(() => currentDate.value.getMonth());
 const calendar = computed(() => {
@@ -60,11 +56,15 @@ const closeModal = (event: MouseEvent) => {
   const clickedElement = event.target as HTMLElement;
 
   if (clickedElement.classList.contains("modal")) {
-    console.log(clickedElement.classList)
     props.setShowCalendar(false);
   }
 };
 
+watchEffect(() => {
+  if (props.showCalendar) {
+    currentDate.value = props.date;
+  }
+});
 </script>
 
 <template>
@@ -77,7 +77,6 @@ const closeModal = (event: MouseEvent) => {
           {{ currentYear }}년 {{ currentMonth + 1 }}월
           <button @click="nextMonth">&gt;</button>
         </div>
-
         <table>
           <thead>
           <tr>
