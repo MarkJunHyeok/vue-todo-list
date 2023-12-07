@@ -6,8 +6,8 @@ import CalendarModal from "~/components/common/CalendarModal.vue";
 import type {ITodo} from "~/models/todo.model";
 import {TodoType} from "~/enum/todo/TodoType";
 import {TodoStatus} from "~/enum/todo/TodoStatus";
-import InfiniteLoading from "vue-infinite-loading";
-import { useInfiniteScroll } from '@vueuse/core'
+import {useInfiniteScroll} from '@vueuse/core'
+import ControlMenu from "~/components/common/ControlMenu.vue";
 
 const date = ref(new Date())
 const showCalendar = ref(false);
@@ -91,6 +91,39 @@ const decrementDate = () => {
 
   date.value = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
 }
+
+const leftControlMenuDefaultOption = ref<string | null>(null);
+const rightControlMenuDefaultOption = ref<string | null>(null);
+
+const setLeftControlMenuDefaultOption = (value: string) => {
+  leftControlMenuDefaultOption.value = value
+}
+
+const setRightControlMenuDefaultOption = (value: string) => {
+  rightControlMenuDefaultOption.value = value
+}
+
+const controlMenuLeft = [{
+  name: '전체',
+  value: null
+}, {
+  name: '완료',
+  value: TodoStatus.COMPLETED.toString()
+}, {
+  name: '진행중',
+  value: TodoStatus.IN_PROGRESS.toString()
+}]
+
+const controlMenuRight = [{
+  name: '전체',
+  value: null
+}, {
+  name: '중요',
+  value: TodoType.IMPORTANT
+}, {
+  name: '여유',
+  value: TodoType.LEISURELY
+}]
 </script>
 
 <template>
@@ -123,6 +156,26 @@ const decrementDate = () => {
       />
     </div>
 
+    <div>
+      <div class="left_col">
+        <ControlMenu
+            :default-option="leftControlMenuDefaultOption"
+            :set-default-option="setLeftControlMenuDefaultOption"
+            :sort-options="controlMenuLeft"
+        />
+        <ControlMenu
+            :default-option="rightControlMenuDefaultOption"
+            :set-default-option="setRightControlMenuDefaultOption"
+            :sort-options="controlMenuRight"
+        />
+      </div>
+
+      <div class="right_col">
+        <MyButton :type="ButtonType.POSITIVE" text="새 일기 쓰기" @click="router.push('/diary/new')"/>
+      </div>
+    </div>
+    </div>
+
     <div class="todo-list" ref="el">
       <div v-for="todo in todoList" :key="todo.id">
         <TodoItem :todo="todo"/>
@@ -134,5 +187,20 @@ const decrementDate = () => {
 
 <style>
 a {
+}
+
+.menu_wrapper {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.right_col {
+  flex-grow: 1;
+}
+
+.right_col button {
+  width: 100%;
 }
 </style>
