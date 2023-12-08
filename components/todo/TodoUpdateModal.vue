@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {TodoType} from "~/enum/todo/TodoType";
+import {TodoType, toTodoType} from "~/enum/todo/TodoType";
 import ControlMenu from "~/components/common/ControlMenu.vue";
 import ColorButton from "~/components/common/ColorButton.vue";
 import {ColorButtonType} from "~/enum/ColorButtonType";
@@ -7,6 +7,7 @@ import {createTodo, deleteTodo, updateTodo} from "~/api/todo.api";
 import useAxios from "~/composables/useAxios";
 import type {PropType} from "@vue/runtime-core";
 import type {ITodo} from "~/models/todo.model";
+import {TodoStatus} from "~/enum/todo/TodoStatus";
 
 const types = [{
   name: '매우 중요',
@@ -27,8 +28,10 @@ const types = [{
 
 const props = defineProps({
   todo: {type: Object as PropType<ITodo>, required: true},
+  setTodo: {type: Function as PropType<(todo: ITodo) => void>, required: true},
+  deleteTodo: {type: Function as PropType<(todo: ITodo) => void>, required: true},
   showModal: {type: Boolean, required: true},
-  setShowModal: {type: Function as PropType<(value: boolean) => void>, required: true},
+  setShowModal: {type: Function as PropType<(value: boolean) => void>, required: true}
 });
 
 const {execute, isLoading} = useAxios();
@@ -43,12 +46,16 @@ const doUpdateTodo = () => {
     description: description.value!,
     type: type.value
   }))
+
+  props.setTodo({...props.todo, description: description.value!, type: toTodoType(type.value)})
 }
 
 const doDeleteTodo = () => {
   props.setShowModal(false)
 
   execute(deleteTodo(props.todo.id!))
+
+  props.deleteTodo(props.todo)
 }
 
 const closeModal = (event: MouseEvent) => {

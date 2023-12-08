@@ -6,34 +6,29 @@ import ColorButton from "~/components/common/ColorButton.vue";
 import {ColorButtonType} from "~/enum/ColorButtonType";
 import {TodoStatus} from "~/enum/todo/TodoStatus";
 import useAxios from "~/composables/useAxios";
-import {TodoType} from "~/enum/todo/TodoType";
-import {completeTodo, unCompleteTodo, updateTodo} from "~/api/todo.api";
+import {completeTodo, unCompleteTodo} from "~/api/todo.api";
+import TodoUpdateModal from "./TodoUpdateModal.vue";
 
 const props = defineProps({
   todo: {type : Object as PropType<ITodo>, required: true},
-  todoChange: {type: Function as PropType<() => void>, required: true}
+  setTodo: {type: Function as PropType<(todo: ITodo) => void>, required: true},
+  deleteTodo: {type: Function as PropType<(todo: ITodo) => void>, required: true},
 });
 
 const {execute, isLoading} = useAxios();
 
 const showTodoUpdateModal = ref(false);
 
-watch(showTodoUpdateModal, (value) => {
-  if (!value) {
-    props.todoChange()
-  }
-})
-
 const doCompleteTodo = () => {
   execute(completeTodo(props.todo.id!))
 
-  props.todoChange()
+  props.setTodo({...props.todo, status : TodoStatus.COMPLETED})
 }
 
 const doUnCompleteTodo = () => {
   execute(unCompleteTodo(props.todo.id!))
 
-  props.todoChange()
+  props.setTodo({...props.todo, status : TodoStatus.IN_PROGRESS})
 }
 </script>
 
@@ -69,6 +64,8 @@ const doUnCompleteTodo = () => {
       </div>
       <TodoUpdateModal
           :todo="todo"
+          :set-todo="props.setTodo!"
+          :delete-todo="props.deleteTodo!"
           :show-modal="showTodoUpdateModal"
           :set-show-modal="value => showTodoUpdateModal = value"
       />

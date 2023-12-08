@@ -38,15 +38,8 @@ const date = ref(new Date())
 const showCalendar = ref(false);
 const showTodoCreateModal = ref(false);
 const todoList = ref<ITodo[]>()
-const todoChangeFlag = ref(false);
 const leftControlMenuDefaultOption = ref<string>('ALL');
 const rightControlMenuDefaultOption = ref<string>('ALL');
-
-watch([showTodoCreateModal, todoChangeFlag], () => {
-  setTimeout(() => {
-    doGetTodoList();
-  }, 100);
-});
 
 watch(res,
     () => {
@@ -68,6 +61,27 @@ onMounted(() => {
 watch([date, leftControlMenuDefaultOption, rightControlMenuDefaultOption], () => {
   doGetTodoList();
 })
+
+
+const handleTodoCreated = () => {
+  setTimeout(() => {
+    doGetTodoList();
+  }, 100);
+}
+
+const setTodo = (todo : ITodo) => {
+  const todoIndex = todoList.value!.findIndex(it => it.id === todo.id);
+  if (todoIndex !== -1) {
+    todoList.value![todoIndex] = { ...todo };
+  }
+};
+
+const deleteTodo = (todo : ITodo) => {
+  const todoIndex = todoList.value!.findIndex(it => it.id === todo.id);
+  if (todoIndex !== -1) {
+    todoList.value!.splice(todoIndex, 1);
+  }
+};
 
 const onShowCalendar = () => {
   showCalendar.value = true
@@ -173,6 +187,7 @@ const doGetTodoList = () => {
         <TodoCreateModal
             :show-modal="showTodoCreateModal"
             :set-show-modal="value => showTodoCreateModal = value"
+            @todoCreated="handleTodoCreated"
         />
       </div>
     </div>
@@ -181,7 +196,8 @@ const doGetTodoList = () => {
       <div v-for="todo in todoList" :key="todo.id">
         <TodoItem
             :todo="todo"
-            :todo-change="() => todoChangeFlag = !todoChangeFlag"
+            :set-todo="setTodo"
+            :delete-todo="deleteTodo"
         />
       </div>
     </div>

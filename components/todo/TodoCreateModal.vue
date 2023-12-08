@@ -29,6 +29,8 @@ const props = defineProps({
   setShowModal: {type: Function as PropType<(value: boolean) => void>, required: true},
 });
 
+const emit = defineEmits(['todoCreated']);
+
 const {execute, isLoading} = useAxios();
 
 const description = ref<string>();
@@ -44,6 +46,8 @@ const doCreateTodo = () => {
 
   description.value = undefined
   type.value = 'SO_SO'
+
+  emit('todoCreated')
 }
 
 const closeModal = (event: MouseEvent) => {
