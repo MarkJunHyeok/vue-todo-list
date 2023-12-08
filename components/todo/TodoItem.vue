@@ -18,8 +18,10 @@ const {execute, isLoading} = useAxios();
 
 const showTodoUpdateModal = ref(false);
 
-watch(showTodoUpdateModal, () => {
-  props.todoChange()
+watch(showTodoUpdateModal, (value) => {
+  if (!value) {
+    props.todoChange()
+  }
 })
 
 const doCompleteTodo = () => {

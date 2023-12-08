@@ -61,6 +61,10 @@ watch(res,
   })
 })
 
+onMounted(() => {
+  doGetTodoList();
+});
+
 watch([date, leftControlMenuDefaultOption, rightControlMenuDefaultOption], () => {
   doGetTodoList();
 })
