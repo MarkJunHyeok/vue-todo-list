@@ -31,3 +31,8 @@ export interface ICreateTodoReq {
     description: string
     type: string
 }
+
+export interface IUpdateTodoReq {
+    description: string
+    type: string
+}

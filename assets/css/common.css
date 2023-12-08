@@ -62,6 +62,11 @@ body {
     color: rgb(255, 255, 255);
 }
 
+.pink-button {
+    background-color: rgba(243, 180, 255, 0.93);
+    color: rgb(255, 255, 255);
+}
+
 button {
     appearance: auto;
     text-rendering: auto;
@@ -244,11 +249,12 @@ header .head_btn_right {
 
 .todo_description {
     font-size: 20px;
+
 }
 
 .todo_date {
-    font-weight: 700;
-    font-size: 20px;
+    font-weight: 600;
+    font-size: 15px;
     margin-bottom: 5px;
 }
 
@@ -326,7 +332,6 @@ select:not(:-internal-list-box) {
     margin-top: 50px;
     display: flex;
     justify-content: end;
-
 }
 
 .todo-create-modal-button-group button {

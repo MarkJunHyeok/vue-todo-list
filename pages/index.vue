@@ -38,10 +38,11 @@ const date = ref(new Date())
 const showCalendar = ref(false);
 const showTodoCreateModal = ref(false);
 const todoList = ref<ITodo[]>()
+const todoChangeFlag = ref(false);
 const leftControlMenuDefaultOption = ref<string>('ALL');
 const rightControlMenuDefaultOption = ref<string>('ALL');
 
-watch(showTodoCreateModal, () => {
+watch([showTodoCreateModal, todoChangeFlag], () => {
   setTimeout(() => {
     doGetTodoList();
   }, 100);
@@ -148,13 +149,6 @@ const doGetTodoList = () => {
       />
     </div>
 
-    <div>
-      <TodoCreateModal
-          :show-modal="showTodoCreateModal"
-          :set-show-modal="value => showTodoCreateModal = value"
-      />
-    </div>
-
     <div class="menu_wrapper">
       <div class="left_col">
         <ControlMenu
@@ -177,12 +171,19 @@ const doGetTodoList = () => {
             text="할일 추가"
             @click="showTodoCreateModal = true"
         />
+        <TodoCreateModal
+            :show-modal="showTodoCreateModal"
+            :set-show-modal="value => showTodoCreateModal = value"
+        />
       </div>
     </div>
 
     <div class="todo-list" ref="el">
       <div v-for="todo in todoList" :key="todo.id">
-        <TodoItem :todo="todo"/>
+        <TodoItem
+            :todo="todo"
+            :todo-change="() => todoChangeFlag = !todoChangeFlag"
+        />
       </div>
     </div>
   </div>

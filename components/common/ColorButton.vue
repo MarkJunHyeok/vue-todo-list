@@ -17,6 +17,8 @@ const getColorButtonClass = () => {
       return "negative-button"
     case ColorButtonType.PURPLE:
       return "purple-button"
+    case ColorButtonType.PINK:
+      return "pink-button"
   }
 }
 
