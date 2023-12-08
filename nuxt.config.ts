@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   ],
   app: {
     head: {
-      title: 'Todo List',
+      title: 'Vue Todo List',
       meta: [{name: 'description', content: 'Nuxt 3 fore beginners'}],
     },
     pageTransition: {name: 'page', mode: 'out-in'}
