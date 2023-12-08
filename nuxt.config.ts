@@ -15,4 +15,10 @@ export default defineNuxtConfig({
   },
   css: [ './assets/css/common.css' ],
   modules: ['@pinia/nuxt'],
+  runtimeConfig: {
+    public: {
+      envName: process.env.ENV_NAME,
+      axiosHost: process.env.AXIOS_HOST,
+    },
+  },
 })

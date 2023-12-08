@@ -258,7 +258,7 @@ header .head_btn_right {
 
 .todo-list {
     overflow: auto;
-    max-height: 90vh;
+    max-height: 80vh;
 }
 .menu_wrapper {
     margin-top: 10px;

@@ -3,77 +3,54 @@ import TabBar from "~/components/todo/TabBar.vue";
 import ColorButton from "~/components/common/ColorButton.vue";
 import {ColorButtonType} from "~/enum/ColorButtonType";
 import CalendarModal from "~/components/common/CalendarModal.vue";
-import type {ITodo} from "~/models/todo.model";
-import {TodoType} from "~/enum/todo/TodoType";
-import {TodoStatus} from "~/enum/todo/TodoStatus";
-import {useInfiniteScroll} from '@vueuse/core'
+import type {IGetTodoList, ITodo} from "~/models/todo.model";
+import {TodoType, toTodoType} from "~/enum/todo/TodoType";
+import {TodoStatus, toTodoStatus} from "~/enum/todo/TodoStatus";
 import ControlMenu from "~/components/common/ControlMenu.vue";
+import useAxios from "~/composables/useAxios";
+import {getTodoList} from "~/api/todo.api";
+
+const {res, isLoading, execute} = useAxios<IGetTodoList>()
 
 const date = ref(new Date())
 const showCalendar = ref(false);
-const todoList = ref<ITodo[]>([
-  {
-    id: 1,
-    number: 1,
-    description: '매우 중요한 작업',
-    type: TodoType.VERY_IMPORTANT,
-    status: TodoStatus.IN_PROGRESS,
-    createdAt: new Date()
-  },
-  {
-    id: 2,
-    number: 2,
-    description: '완료된 작업',
-    type: TodoType.SO_SO,
-    status: TodoStatus.COMPLETED,
-    createdAt: new Date()
-  },
-  {
-    id: 3,
-    number: 3,
-    description: '중요한 작업',
-    type: TodoType.IMPORTANT,
-    status: TodoStatus.IN_PROGRESS,
-    createdAt: new Date()
-  },
-  {
-    id: 4,
-    number: 4,
-    description: '보통 작업',
-    type: TodoType.SO_SO,
-    status: TodoStatus.IN_PROGRESS,
-    createdAt: new Date()
-  },
-  {
-    id: 5,
-    number: 5,
-    description: '한가한 작업',
-    type: TodoType.LEISURELY,
-    status: TodoStatus.IN_PROGRESS,
-    createdAt: new Date()
-  },
-  {
-    id: 6,
-    number: 6,
-    description: '매우 한가한 작업',
-    type: TodoType.VERY_LEISURELY,
-    status: TodoStatus.COMPLETED,
-    createdAt: new Date()
-  },
-])
+const todoList = ref<ITodo[]>()
+const leftControlMenuDefaultOption = ref<string>('ALL');
+const rightControlMenuDefaultOption = ref<string>('ALL');
 
-const el = ref<HTMLElement | null>(null)
-
-useInfiniteScroll(
-    el,
+watch(res,
     () => {
-      const newItems: ITodo[] = [
-        ...todoList.value
-      ];
-      todoList.value = [...todoList.value, ...newItems];
-    },
-    { distance: 10 }
-)
+  todoList.value = res.value!.data.map(it => {
+    return {
+      ...it,
+      type: toTodoType(it.type),
+      status: toTodoStatus(it.status),
+      createdAt: new Date(it.createdAt),
+    };
+  })
+})
+
+onMounted(() => {
+  doGetTodoList();
+});
+
+watch([date, leftControlMenuDefaultOption, rightControlMenuDefaultOption], () => {
+  doGetTodoList();
+})
+
+
+// const el = ref<HTMLElement | null>(null)
+
+// useInfiniteScroll(
+//     el,
+//     () => {
+//       const newItems: ITodo[] = [
+//         ...todoList.value
+//       ];
+//       todoList.value = [...todoList.value, ...newItems];
+//     },
+//     { distance: 10 }
+// )
 
 const onShowCalendar = () => {
   showCalendar.value = true
@@ -92,9 +69,6 @@ const decrementDate = () => {
   date.value = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
 }
 
-const leftControlMenuDefaultOption = ref<string>('ALL');
-const rightControlMenuDefaultOption = ref<string>('ALL');
-
 const setLeftControlMenuDefaultOption = (value: string) => {
   leftControlMenuDefaultOption.value = value
 }
@@ -103,15 +77,40 @@ const setRightControlMenuDefaultOption = (value: string) => {
   rightControlMenuDefaultOption.value = value
 }
 
+const doGetTodoList = () => {
+  let statusString: string | null = leftControlMenuDefaultOption.value
+  let typeString: string | null = rightControlMenuDefaultOption.value
+
+  if (statusString === 'ALL') {
+    statusString = null
+  }
+  if (typeString === 'ALL') {
+    typeString = null
+  }
+
+  const year = date.value.getFullYear();
+  const month = String(date.value.getMonth() + 1).padStart(2, '0');
+  const day = String(date.value.getDate()).padStart(2, '0');
+  const currentDate = `${year}-${month}-${day}`;
+
+  todoList.value = []
+
+  execute(getTodoList({
+    status: statusString,
+    type: typeString,
+    date: currentDate
+  }))
+}
+
 const controlMenuLeft = [{
   name: '전체',
   value: 'ALL'
 }, {
   name: '완료',
-  value: TodoStatus.COMPLETED.toString()
+  value: TodoStatus[TodoStatus.COMPLETED]
 }, {
   name: '진행중',
-  value: TodoStatus.IN_PROGRESS.toString()
+  value: TodoStatus[TodoStatus.IN_PROGRESS]
 }]
 
 const controlMenuRight = [{
@@ -119,10 +118,10 @@ const controlMenuRight = [{
   value: 'ALL'
 }, {
   name: '중요',
-  value: TodoType.IMPORTANT.toString()
+  value: TodoType[TodoType.IMPORTANT]
 }, {
   name: '여유',
-  value: TodoType.LEISURELY.toString()
+  value: TodoType[TodoType.LEISURELY]
 }]
 </script>
 
@@ -130,13 +129,13 @@ const controlMenuRight = [{
   <body>
   <div class="main">
     <div>
-      <TabBar>
+      <TabBar :key="date">
         <template v-slot:leftButton>
           <ColorButton :type="ColorButtonType.DEFAULT" text="<" @click="decrementDate"/>
         </template>
 
         <template v-slot:centerText>
-          <div @click="onShowCalendar">
+          <div :key="date" @click="onShowCalendar">
             {{ date.getFullYear() }}년 {{ date.getMonth() + 1 }}월 {{ date.getDate() }}일
           </div>
         </template>
@@ -162,16 +161,18 @@ const controlMenuRight = [{
             :default-option="leftControlMenuDefaultOption"
             :set-default-option="setLeftControlMenuDefaultOption"
             :sort-options="controlMenuLeft"
+            :key="leftControlMenuDefaultOption"
         />
         <ControlMenu
             :default-option="rightControlMenuDefaultOption"
             :set-default-option="setRightControlMenuDefaultOption"
             :sort-options="controlMenuRight"
+            :key="rightControlMenuDefaultOption"
         />
       </div>
 
       <div class="right_col">
-        <ColorButton :type="ColorButtonType.POSITIVE" text="작성하기" />
+        <ColorButton :type="ColorButtonType.POSITIVE" text="작성하기"/>
       </div>
     </div>
 
@@ -186,20 +187,5 @@ const controlMenuRight = [{
 
 <style>
 a {
-}
-
-.menu_wrapper {
-  margin-top: 20px;
-  margin-bottom: 30px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.right_col {
-  flex-grow: 1;
-}
-
-.right_col button {
-  width: 100%;
 }
 </style>
