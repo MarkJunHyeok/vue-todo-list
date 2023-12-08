@@ -10,13 +10,42 @@ import ControlMenu from "~/components/common/ControlMenu.vue";
 import useAxios from "~/composables/useAxios";
 import {getTodoList} from "~/api/todo.api";
 
+const controlMenuLeft = [{
+  name: '전체',
+  value: 'ALL'
+}, {
+  name: '완료',
+  value: TodoStatus[TodoStatus.COMPLETED]
+}, {
+  name: '진행중',
+  value: TodoStatus[TodoStatus.IN_PROGRESS]
+}]
+
+const controlMenuRight = [{
+  name: '전체',
+  value: 'ALL'
+}, {
+  name: '중요',
+  value: TodoType[TodoType.IMPORTANT]
+}, {
+  name: '여유',
+  value: TodoType[TodoType.LEISURELY]
+}]
+
 const {res, isLoading, execute} = useAxios<IGetTodoList>()
 
 const date = ref(new Date())
 const showCalendar = ref(false);
+const showTodoCreateModal = ref(false);
 const todoList = ref<ITodo[]>()
 const leftControlMenuDefaultOption = ref<string>('ALL');
 const rightControlMenuDefaultOption = ref<string>('ALL');
+
+watch(showTodoCreateModal, () => {
+  setTimeout(() => {
+    doGetTodoList();
+  }, 100);
+});
 
 watch(res,
     () => {
@@ -37,20 +66,6 @@ onMounted(() => {
 watch([date, leftControlMenuDefaultOption, rightControlMenuDefaultOption], () => {
   doGetTodoList();
 })
-
-
-// const el = ref<HTMLElement | null>(null)
-
-// useInfiniteScroll(
-//     el,
-//     () => {
-//       const newItems: ITodo[] = [
-//         ...todoList.value
-//       ];
-//       todoList.value = [...todoList.value, ...newItems];
-//     },
-//     { distance: 10 }
-// )
 
 const onShowCalendar = () => {
   showCalendar.value = true
@@ -101,28 +116,6 @@ const doGetTodoList = () => {
     date: currentDate
   }))
 }
-
-const controlMenuLeft = [{
-  name: '전체',
-  value: 'ALL'
-}, {
-  name: '완료',
-  value: TodoStatus[TodoStatus.COMPLETED]
-}, {
-  name: '진행중',
-  value: TodoStatus[TodoStatus.IN_PROGRESS]
-}]
-
-const controlMenuRight = [{
-  name: '전체',
-  value: 'ALL'
-}, {
-  name: '중요',
-  value: TodoType[TodoType.IMPORTANT]
-}, {
-  name: '여유',
-  value: TodoType[TodoType.LEISURELY]
-}]
 </script>
 
 <template>
@@ -155,6 +148,13 @@ const controlMenuRight = [{
       />
     </div>
 
+    <div>
+      <TodoCreateModal
+          :show-modal="showTodoCreateModal"
+          :set-show-modal="value => showTodoCreateModal = value"
+      />
+    </div>
+
     <div class="menu_wrapper">
       <div class="left_col">
         <ControlMenu
@@ -172,7 +172,11 @@ const controlMenuRight = [{
       </div>
 
       <div class="right_col">
-        <ColorButton :type="ColorButtonType.POSITIVE" text="작성하기"/>
+        <ColorButton
+            :type="ColorButtonType.POSITIVE"
+            text="할일 추가"
+            @click="showTodoCreateModal = true"
+        />
       </div>
     </div>
 
@@ -183,6 +187,8 @@ const controlMenuRight = [{
     </div>
   </div>
   </body>
+
+  <TodoCreateModal />
 </template>
 
 <style>

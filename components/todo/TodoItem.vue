@@ -10,8 +10,6 @@ const props = defineProps({
   todo: {type : Object as PropType<ITodo>, required: true}
 });
 
-
-
 </script>
 
 <template>

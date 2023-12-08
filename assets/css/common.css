@@ -253,6 +253,10 @@ header .head_btn_right {
 }
 
 .todo_btn_wrapper .color-button {
+    display: flex;
+}
+
+.todo_btn_wrapper .color-button {
     margin-left: 5px;
 }
 
@@ -295,4 +299,59 @@ header .head_btn_right {
 
 select:not(:-internal-list-box) {
     overflow: visible !important;
+}
+
+.todo-create-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.todo-create-modal-content {
+    background-color: #fff;
+    width: 350px;
+    height: 280px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.todo-create-modal-button-group {
+    margin-top: 50px;
+    display: flex;
+    justify-content: end;
+
+}
+
+.todo-create-modal-button-group button {
+    margin-right: 5px;
+}
+
+.todo-create-form-group {
+    margin-bottom: 5px;
+}
+
+.todo-create-modal label {
+    font-weight: bold;
+}
+
+.todo-create-modal input[type="text"] {
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+@media (max-width: 768px) {
+    .todo-create-modal-content {
+        background-color: #fff;
+        width: 320px;
+        height: 300px;
+
+    }
 }

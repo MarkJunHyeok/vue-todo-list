@@ -26,3 +26,8 @@ export interface IGetTodoListParams {
     status: string | null
     date: string
 }
+
+export interface ICreateTodoReq {
+    description: string
+    type: string
+}
