@@ -114,9 +114,8 @@ header .head_btn_right {
     justify-content: end;
 }
 
-/* 모달 스타일을 정의합니다. */
+/* 기본 스타일 */
 .modal {
-    /* 모달을 화면 중앙에 위치시키고 배경을 어둡게 만듭니다. */
     position: fixed;
     top: 0;
     left: 0;
@@ -130,19 +129,18 @@ header .head_btn_right {
 }
 
 .modal-content {
-    /* 모달 내부의 스타일을 정의합니다. */
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
 }
 
 .calendar {
-    /* 캘린더 내용의 스타일을 정의합니다. */
-    display: inline-block; /* 인라인 블록으로 표시 */
-    text-align: center; /* 텍스트 가운데 정렬 */
+    display: inline-block;
+    text-align: center;
     font-size: 18px;
-    width: 400px;
-    height: 23vh;
+    max-width: 400px; /* 최대 너비 설정 */
+    width: 40vh; /* 화면 크기에 따라 너비 조절 */
+    height: auto; /* 높이 자동 조절 */
 }
 
 .calendar-header {
@@ -175,13 +173,23 @@ header .head_btn_right {
     padding: 0;
 }
 
-/* 이전 월, 다음 월 버튼 스타일링 */
 .calendar-header button {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 20px;
     margin: 0 5px;
+}
+
+/* 미디어 쿼리를 사용하여 화면 크기에 따른 스타일 조정 */
+@media (max-width: 768px) {
+    .calendar {
+        font-size: 16px;
+    }
+
+    .calendar-header button {
+        font-size: 18px;
+    }
 }
 
 .todo_type_wrapper {
