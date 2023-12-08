@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Yeon+Sung&display=swap);
+
 body {
     background-color: #f6f6f6;
     display: flex;
@@ -260,6 +262,7 @@ header .head_btn_right {
 
 .todo_btn_wrapper .color-button {
     display: flex;
+    margin-left: 5px;
 }
 
 .todo_btn_wrapper .color-button {
@@ -346,10 +349,10 @@ select:not(:-internal-list-box) {
     font-weight: bold;
 }
 
-.todo-create-modal input[type="text"] {
+.todo-create-form-group input[type="text"] {
     width: 90%;
-    padding: 8px;
-    border: 1px solid #ddd;
+    padding: 13px;
+    border: 2px solid #ddd;
 }
 
 @media (max-width: 768px) {
