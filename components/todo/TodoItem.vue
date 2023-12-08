@@ -40,8 +40,7 @@ const doUnCompleteTodo = () => {
       <TodoTypeBox :type="todo.type" />
       <div class="todo_wrapper">
         <div class="todo_date">
-          {{ props.todo.createdAt.toLocaleString().split(' ')[3]
-        + ' ' + props.todo.createdAt.toLocaleString().split(' ')[4] }}
+          {{ props.todo.createdAt.toTimeString().split(" ")[0]}}
         </div>
         <div class="todo_description">
           {{ props.todo.description }}

@@ -50,6 +50,7 @@ watch([showTodoCreateModal, todoChangeFlag], () => {
 
 watch(res,
     () => {
+  todoList.value = []
   todoList.value = res.value!.data.map(it => {
     return {
       ...it,
@@ -59,10 +60,6 @@ watch(res,
     };
   })
 })
-
-onMounted(() => {
-  doGetTodoList();
-});
 
 watch([date, leftControlMenuDefaultOption, rightControlMenuDefaultOption], () => {
   doGetTodoList();
@@ -108,8 +105,6 @@ const doGetTodoList = () => {
   const month = String(date.value.getMonth() + 1).padStart(2, '0');
   const day = String(date.value.getDate()).padStart(2, '0');
   const currentDate = `${year}-${month}-${day}`;
-
-  todoList.value = []
 
   execute(getTodoList({
     status: statusString,
