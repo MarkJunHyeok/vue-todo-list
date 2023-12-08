@@ -1,29 +1,19 @@
-# vue-diary
+# Vue-TodoList
 
-This template should help get you started developing with Vue 3 in Vite.
+#### VUE 학습을 위한 간단한 사이드 프로젝트입니다.
 
-## Recommended IDE Setup
+### Backend 
+백엔드는 Java Spring JPA를 사용하여 구현했습니다.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+(https://github.com/MarkJunHyeok/Todolist-api) 
 
-## Customize configuration
+### ForntEnd
+프론트 기술 스택은 아래와 같이 구성하였습니다.
+- Vue3
+- Nuxt3
+- Pinia
+- Typescript
+- Axios
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+https://vuetodo.site 해당 링크를 통해 완성된 사이트에 접속 가능합니다.
