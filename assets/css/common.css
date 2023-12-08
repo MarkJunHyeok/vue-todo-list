@@ -252,8 +252,29 @@ header .head_btn_right {
     overflow: auto;
     max-height: 90vh;
 }
+.menu_wrapper {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left_col {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.right_col {
+    flex-grow: 1;
+}
+
+.right_col button {
+    width: 100%;
+}
 
 .control_menu {
+    width: 100%;
     margin-right: 10px;
     border: none;
     border-radius: 5px;

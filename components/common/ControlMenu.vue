@@ -17,3 +17,7 @@ const props = defineProps({
     </option>
   </select>
 </template>
+
+<style>
+a{}
+</style>

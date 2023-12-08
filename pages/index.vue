@@ -92,8 +92,8 @@ const decrementDate = () => {
   date.value = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
 }
 
-const leftControlMenuDefaultOption = ref<string | null>(null);
-const rightControlMenuDefaultOption = ref<string | null>(null);
+const leftControlMenuDefaultOption = ref<string>('ALL');
+const rightControlMenuDefaultOption = ref<string>('ALL');
 
 const setLeftControlMenuDefaultOption = (value: string) => {
   leftControlMenuDefaultOption.value = value
@@ -105,7 +105,7 @@ const setRightControlMenuDefaultOption = (value: string) => {
 
 const controlMenuLeft = [{
   name: '전체',
-  value: null
+  value: 'ALL'
 }, {
   name: '완료',
   value: TodoStatus.COMPLETED.toString()
@@ -116,13 +116,13 @@ const controlMenuLeft = [{
 
 const controlMenuRight = [{
   name: '전체',
-  value: null
+  value: 'ALL'
 }, {
   name: '중요',
-  value: TodoType.IMPORTANT
+  value: TodoType.IMPORTANT.toString()
 }, {
   name: '여유',
-  value: TodoType.LEISURELY
+  value: TodoType.LEISURELY.toString()
 }]
 </script>
 
@@ -156,7 +156,7 @@ const controlMenuRight = [{
       />
     </div>
 
-    <div>
+    <div class="menu_wrapper">
       <div class="left_col">
         <ControlMenu
             :default-option="leftControlMenuDefaultOption"
@@ -171,9 +171,8 @@ const controlMenuRight = [{
       </div>
 
       <div class="right_col">
-        <MyButton :type="ButtonType.POSITIVE" text="새 일기 쓰기" @click="router.push('/diary/new')"/>
+        <ColorButton :type="ColorButtonType.POSITIVE" text="작성하기" />
       </div>
-    </div>
     </div>
 
     <div class="todo-list" ref="el">
