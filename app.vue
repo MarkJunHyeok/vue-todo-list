@@ -12,15 +12,6 @@ const route = useRoute();
 const {logout}= useAuthStore()
 const {authFlag}= storeToRefs(useAuthStore())
 
-onMounted(() => {
-  const storedAccessToken = localStorage.getItem('accessToken');
-  const storedRefreshToken = localStorage.getItem('refreshToken');
-
-  if (route.path === '/token' || (storedAccessToken || storedRefreshToken)) {
-    authFlag.value = true
-  }
-})
-
 const loginButton = () => {
   window.location.href = useRuntimeConfig().public['oauthHost'] as string;
 }
