@@ -19,6 +19,7 @@ export default defineNuxtConfig({
     public: {
       envName: process.env.ENV_NAME,
       axiosHost: process.env.AXIOS_HOST,
+      oauthHost: process.env.OAUTH_HOST
     },
   },
 })
