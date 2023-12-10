@@ -355,9 +355,10 @@ select:not(:-internal-list-box) {
 }
 
 .todo-create-form-group input[type="text"] {
-    width: 90%;
+    width: 91%;
     padding: 13px;
     border: 2px solid #ddd;
+    border-radius: 10px;
 }
 
 @media (max-width: 768px) {
