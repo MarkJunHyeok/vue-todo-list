@@ -8,8 +8,6 @@ import useAuthStore from "~/stores/auth";
 
 axios.defaults.baseURL = useRuntimeConfig().public['axiosHost'] as string
 
-const route = useRoute();
-const router = useRouter();
 const {logout} = useAuthStore()
 const {authFlag} = storeToRefs(useAuthStore())
 
