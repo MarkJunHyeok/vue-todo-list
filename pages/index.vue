@@ -55,7 +55,15 @@ watch(res,
     })
 
 onMounted(() => {
-  doGetTodoList();
+  const storedAccessToken = localStorage.getItem('accessToken');
+
+  if (storedAccessToken) {
+    doGetTodoList();
+  } else {
+    alert("로그인이 필요합니다.")
+
+    window.location.href = '/login'
+  }
 });
 
 watch([date, leftControlMenuDefaultOption, rightControlMenuDefaultOption], () => {
