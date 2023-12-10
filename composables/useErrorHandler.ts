@@ -1,4 +1,6 @@
 import { AxiosError } from "axios"
+import {storeToRefs} from "pinia";
+import useAuthStore from "~/stores/auth";
 
 interface IErrorData {
   message: string
@@ -16,6 +18,9 @@ const useErrorHandler = (
     conflictMessage?: string
   },
 ) => {
+  const {authFlag} = storeToRefs(useAuthStore());
+
+
   const warningNotification = (message: string) => alert(message)
 
   const errorNotification = (message: string) => alert(message)
@@ -40,8 +45,13 @@ const useErrorHandler = (
         getErrorMessage(errorData)
       )
       break
+    case 401:
+      warningNotification('권한이 없습니다.');
+      authFlag.value = false
+      break
     case 403:
-      warningNotification('권한이 없습니다.')
+      warningNotification('권한이 없습니다.');
+      authFlag.value = false
       break
     case 404:
       if (!options?.ignoreNotFound) {

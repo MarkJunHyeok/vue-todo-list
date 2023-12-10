@@ -3,5 +3,6 @@ export enum ColorButtonType {
     POSITIVE,
     NEGATIVE,
     PURPLE,
-    PINK
+    PINK,
+    BLACK,
 }

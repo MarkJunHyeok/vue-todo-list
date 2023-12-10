@@ -9,6 +9,10 @@ import {TodoStatus, toTodoStatus} from "~/enum/todo/TodoStatus";
 import ControlMenu from "~/components/common/ControlMenu.vue";
 import useAxios from "~/composables/useAxios";
 import {getTodoList} from "~/api/todo.api";
+import {storeToRefs} from "pinia";
+import useAuthStore from "~/stores/auth";
+import auth from "~/stores/auth";
+import LogOutButton from "~/components/common/LogOutButton.vue";
 
 const controlMenuLeft = [{
   name: '전체',
