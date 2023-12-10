@@ -8,5 +8,5 @@ export interface IListResponse<T> extends IResponseBase {
 }
 
 export const accessHeader = () => {
-    return { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
+    return {Authorization: `Bearer ${localStorage.getItem('accessToken')}`}
 }

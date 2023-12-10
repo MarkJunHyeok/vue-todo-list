@@ -19,5 +19,6 @@ const props = defineProps({
 </template>
 
 <style>
-a{}
+a {
+}
 </style>

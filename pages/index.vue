@@ -9,10 +9,6 @@ import {TodoStatus, toTodoStatus} from "~/enum/todo/TodoStatus";
 import ControlMenu from "~/components/common/ControlMenu.vue";
 import useAxios from "~/composables/useAxios";
 import {getTodoList} from "~/api/todo.api";
-import {storeToRefs} from "pinia";
-import useAuthStore from "~/stores/auth";
-import auth from "~/stores/auth";
-import LogOutButton from "~/components/common/LogOutButton.vue";
 
 const controlMenuLeft = [{
   name: '전체',
@@ -47,16 +43,16 @@ const rightControlMenuDefaultOption = ref<string>('ALL');
 
 watch(res,
     () => {
-  todoList.value = []
-  todoList.value = res.value!.data.map(it => {
-    return {
-      ...it,
-      type: toTodoType(it.type),
-      status: toTodoStatus(it.status),
-      createdAt: new Date(it.createdAt),
-    };
-  })
-})
+      todoList.value = []
+      todoList.value = res.value!.data.map(it => {
+        return {
+          ...it,
+          type: toTodoType(it.type),
+          status: toTodoStatus(it.status),
+          createdAt: new Date(it.createdAt),
+        };
+      })
+    })
 
 onMounted(() => {
   doGetTodoList();
@@ -73,14 +69,14 @@ const handleTodoCreated = () => {
   }, 100);
 }
 
-const setTodo = (todo : ITodo) => {
+const setTodo = (todo: ITodo) => {
   const todoIndex = todoList.value!.findIndex(it => it.id === todo.id);
   if (todoIndex !== -1) {
-    todoList.value![todoIndex] = { ...todo };
+    todoList.value![todoIndex] = {...todo};
   }
 };
 
-const deleteTodo = (todo : ITodo) => {
+const deleteTodo = (todo: ITodo) => {
   const todoIndex = todoList.value!.findIndex(it => it.id === todo.id);
   if (todoIndex !== -1) {
     todoList.value!.splice(todoIndex, 1);
@@ -208,7 +204,7 @@ const doGetTodoList = () => {
   </div>
   </body>
 
-  <TodoCreateModal />
+  <TodoCreateModal/>
 </template>
 
 <style>

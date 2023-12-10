@@ -92,5 +92,6 @@ const closeModal = (event: MouseEvent) => {
 </template>
 
 <style>
-a{}
+a {
+}
 </style>

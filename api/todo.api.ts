@@ -11,21 +11,21 @@ export const getTodoList = (params: IGetTodoListParams): AxiosPromise<IGetTodoLi
 }
 
 export const createTodo = (req: ICreateTodoReq): AxiosPromise => {
-    return axios.post(url, req, { headers: accessHeader() })
+    return axios.post(url, req, {headers: accessHeader()})
 }
 
 export const updateTodo = (id: number, req: IUpdateTodoReq): AxiosPromise => {
-    return axios.put(`${url}/${id}`, req, { headers: accessHeader() })
+    return axios.put(`${url}/${id}`, req, {headers: accessHeader()})
 }
 
 export const deleteTodo = (id: number): AxiosPromise => {
-    return axios.delete(`${url}/${id}`, { headers: accessHeader() })
+    return axios.delete(`${url}/${id}`, {headers: accessHeader()})
 }
 
 export const completeTodo = (id: number): AxiosPromise => {
-    return axios.patch(`${url}/complete/${id}`,  null,{ headers: accessHeader() })
+    return axios.patch(`${url}/complete/${id}`, null, {headers: accessHeader()})
 }
 
 export const unCompleteTodo = (id: number): AxiosPromise => {
-    return axios.patch(`${url}/un-complete/${id}`, null, { headers: accessHeader() })
+    return axios.patch(`${url}/un-complete/${id}`, null, {headers: accessHeader()})
 }

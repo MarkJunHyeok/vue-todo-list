@@ -1,5 +1,3 @@
-import {TodoStatus} from "~/enum/todo/TodoStatus";
-
 export enum TodoType {
     VERY_IMPORTANT,
     IMPORTANT,

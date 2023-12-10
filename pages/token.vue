@@ -5,7 +5,7 @@ import useAuthStore from "~/stores/auth";
 const route = useRoute();
 const router = useRouter();
 
-const {authFlag}= storeToRefs(useAuthStore())
+const {authFlag} = storeToRefs(useAuthStore())
 
 
 onMounted(() => {
@@ -22,7 +22,7 @@ onMounted(() => {
   const storedAccessToken = localStorage.getItem('accessToken');
   const storedRefreshToken = localStorage.getItem('refreshToken');
 
-  if(storedAccessToken && storedRefreshToken) {
+  if (storedAccessToken && storedRefreshToken) {
     authFlag.value = true
 
     router.push("/")

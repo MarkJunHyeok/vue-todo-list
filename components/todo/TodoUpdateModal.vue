@@ -3,11 +3,10 @@ import {TodoType, toTodoType} from "~/enum/todo/TodoType";
 import ControlMenu from "~/components/common/ControlMenu.vue";
 import ColorButton from "~/components/common/ColorButton.vue";
 import {ColorButtonType} from "~/enum/ColorButtonType";
-import {createTodo, deleteTodo, updateTodo} from "~/api/todo.api";
+import {deleteTodo, updateTodo} from "~/api/todo.api";
 import useAxios from "~/composables/useAxios";
 import type {PropType} from "@vue/runtime-core";
 import type {ITodo} from "~/models/todo.model";
-import {TodoStatus} from "~/enum/todo/TodoStatus";
 
 const types = [{
   name: '매우 중요',
@@ -105,5 +104,6 @@ const closeModal = (event: MouseEvent) => {
 </template>
 
 <style>
-a{}
+a {
+}
 </style>

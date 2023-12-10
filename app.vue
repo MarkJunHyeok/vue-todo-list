@@ -10,8 +10,8 @@ axios.defaults.baseURL = useRuntimeConfig().public['axiosHost'] as string
 
 const route = useRoute();
 const router = useRouter();
-const {logout}= useAuthStore()
-const {authFlag}= storeToRefs(useAuthStore())
+const {logout} = useAuthStore()
+const {authFlag} = storeToRefs(useAuthStore())
 
 const tokenValidate = () => {
   const storedAccessToken = localStorage.getItem('accessToken');
@@ -35,11 +35,11 @@ onUpdated(tokenValidate)
 </script>
 
 <template>
-    <NuxtPage />
-    <ColorButton v-if="authFlag"
-        class="logout-button"
-        :type="ColorButtonType.NEGATIVE"
-        text="EXIT"
-        @click="logoutButton"
-    />
+  <NuxtPage/>
+  <ColorButton v-if="authFlag"
+               class="logout-button"
+               :type="ColorButtonType.NEGATIVE"
+               text="EXIT"
+               @click="logoutButton"
+  />
 </template>

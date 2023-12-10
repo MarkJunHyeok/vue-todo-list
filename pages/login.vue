@@ -11,7 +11,7 @@ const loginButton = () => {
 <template>
   <div class="auth_container">
     <div class="auth_img_div">
-      <img src="~/assets/img/logo.png"  style="color:transparent">
+      <img src="~/assets/img/logo.png" style="color:transparent">
       <div class="auth_text_div">
         <h1>오늘을 기록하세요</h1>
         <h2>지금 시작하세요</h2>
