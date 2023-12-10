@@ -16,7 +16,7 @@ onMounted(() => {
   const storedAccessToken = localStorage.getItem('accessToken');
   const storedRefreshToken = localStorage.getItem('refreshToken');
 
-  if ((storedAccessToken || storedRefreshToken)) {
+  if (route.path === '/token' || (storedAccessToken || storedRefreshToken)) {
     authFlag.value = true
   }
 })
