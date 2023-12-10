@@ -18,7 +18,7 @@ const useErrorHandler = (
     conflictMessage?: string
   },
 ) => {
-  const {authFlag} = storeToRefs(useAuthStore());
+  const { logout} = useAuthStore();
 
 
   const warningNotification = (message: string) => alert(message)
@@ -47,11 +47,11 @@ const useErrorHandler = (
       break
     case 401:
       warningNotification('권한이 없습니다.');
-      authFlag.value = false
+      logout()
       break
     case 403:
       warningNotification('권한이 없습니다.');
-      authFlag.value = false
+      logout()
       break
     case 404:
       if (!options?.ignoreNotFound) {

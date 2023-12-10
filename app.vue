@@ -9,48 +9,37 @@ import useAuthStore from "~/stores/auth";
 axios.defaults.baseURL = useRuntimeConfig().public['axiosHost'] as string
 
 const route = useRoute();
+const router = useRouter();
 const {logout}= useAuthStore()
 const {authFlag}= storeToRefs(useAuthStore())
 
-onMounted(() => {
+const tokenValidate = () => {
   const storedAccessToken = localStorage.getItem('accessToken');
-  const storedRefreshToken = localStorage.getItem('refreshToken');
 
-  if (route.path === '/token' || (storedAccessToken || storedRefreshToken)) {
+  if (storedAccessToken) {
     authFlag.value = true
   }
-})
-
-const loginButton = () => {
-  window.location.href = useRuntimeConfig().public['oauthHost'] as string;
 }
 
+const logoutButton = () => {
+  const result = confirm("로그아웃 하시겠습니까?");
+
+  if (result) {
+    logout()
+  }
+}
+
+onMounted(tokenValidate)
+onUpdated(tokenValidate)
 
 </script>
 
 <template>
-  <div v-if="authFlag">
     <NuxtPage />
-    <ColorButton
+    <ColorButton v-if="authFlag"
         class="logout-button"
         :type="ColorButtonType.NEGATIVE"
         text="EXIT"
-        @click="logout"
+        @click="logoutButton"
     />
-  </div>
-  <div v-else class="auth_container">
-    <div class="auth_img_div">
-      <img src="~/assets/img/logo.png"  style="color:transparent">
-      <div class="auth_text_div">
-          <h1>오늘을 기록하세요</h1>
-          <h2>지금 시작하세요</h2>
-
-        <ColorButton
-            :type="ColorButtonType.BLACK"
-            text="Login With Github"
-            @click="loginButton"
-        />
-      </div>
-    </div>
-  </div>
 </template>

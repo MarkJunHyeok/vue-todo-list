@@ -23,6 +23,8 @@ onMounted(() => {
   const storedRefreshToken = localStorage.getItem('refreshToken');
 
   if(storedAccessToken && storedRefreshToken) {
+    authFlag.value = true
+
     router.push("/")
   } else {
     alert("로그인 중 에러가 발생했습니다.")
