@@ -19,7 +19,7 @@ const types = [{
   value: TodoType[TodoType.SO_SO]
 }, {
   name: '여유',
-  value: TodoType[TodoType.IMPORTANT]
+  value: TodoType[TodoType.LEISURELY]
 }, {
   name: '매우 여유',
   value: TodoType[TodoType.VERY_LEISURELY]
