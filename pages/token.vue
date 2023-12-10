@@ -6,6 +6,7 @@ const router = useRouter();
 onMounted(() => {
   const accessToken = route.query.accessToken as string;
   const refreshToken = route.query.refreshToken as string;
+  const error = route.query.error as string;
 
   // 쿼리 파라미터를 로컬 스토리지에 저장
   if (accessToken) {
@@ -19,6 +20,10 @@ onMounted(() => {
   const storedRefreshToken = localStorage.getItem('refreshToken');
 
   if(storedAccessToken && storedRefreshToken) {
+    router.push("/")
+  } else if(error) {
+    alert("로그인 중 에러가 발생했습니다.")
+
     router.push("/")
   }
 });
